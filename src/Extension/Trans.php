@@ -28,7 +28,7 @@ class Trans extends Twig_Extension
 		return 'trans';
 	}
 
-	function trans( $literal, $arguments = [], $count = 0, $domain = "messages", $local = null )
+	public function trans( $literal, $arguments = [], $count = 0, $domain = "messages", $local = null )
 	{
 		$offset_arguments = array( );
 		foreach ( $arguments as $offset => $argument )
