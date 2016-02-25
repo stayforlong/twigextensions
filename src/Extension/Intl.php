@@ -92,7 +92,8 @@ class Intl extends Twig_Extension
     {
         $formatter = $this->twig_get_number_formatter($locale, 'currency');
 
-        return $formatter->formatCurrency($number, $currency);
+        $currency = $formatter->formatCurrency($number, $currency);
+        return str_replace(',00', '', str_replace('.00', '', $currency));
     }
 
     /**
