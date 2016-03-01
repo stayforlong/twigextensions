@@ -32,7 +32,7 @@ class PhotoUrl extends Twig_Extension
 				$photo = $arguments[1];
 				$path = $arguments[2];
 
-				if( "stayforlong" == $photo['source'] && !empty($photo['sync'])){
+				if( "stayforlong" == $photo['source'] ){
 					return $this->getUrlBucket($type, $photo['path']);
 				}
 
