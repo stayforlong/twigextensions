@@ -36,7 +36,9 @@ class PhotoUrl extends Twig_Extension
 					return $this->getUrlBucket($type, $photo['path']);
 				}
 
-				return $path.$photo['path'];
+				if(!empty($photo['path'])){
+					return $path.$photo['path'];
+				}
 			}, ['is_safe' => ['html']]
 		  ),
 		];
