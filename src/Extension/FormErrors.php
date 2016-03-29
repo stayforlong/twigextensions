@@ -7,6 +7,8 @@ use Twig_SimpleFunction;
 
 class FormErrors extends Twig_Extension
 {
+	const DOMAIN = "message";
+
 	/**
 	 * Returns the name of the extension.
 	 *
@@ -22,32 +24,40 @@ class FormErrors extends Twig_Extension
 	 */
 	public function getFunctions()
 	{
-		return [
-		  new Twig_SimpleFunction(
-			'errors_for',
-			function ($name) {
-				$arguments = func_get_args();
+		return array(
+			new Twig_SimpleFunction(
+				'errors_for',
+				function ($name) {
+					$arguments = func_get_args();
 
-				$domain = "message";
-				$attribute = $arguments[0];
-				$errors = $arguments[1];
-				$class = !empty($arguments[2])? $arguments[2] : null;
+					if(empty($arguments[0])){
+						throw new \Twig_Error("Empty first argument to define the attribute of error");
+					}
 
-				$message = $errors->first($attribute, ':message');
-				$message = Trans::trans_choice($message, 0);
+					if(empty($arguments[1])){
+						throw new \Twig_Error("Empty second argument to define the array errors");
+					}
 
-				if(!empty($class) && !empty($message)){
-					$this->addErrroHtmlTag($message, $class);
-				}
+					$attribute = $arguments[0];
+					$errors    = $arguments[1];
+					$class     = !empty($arguments[2]) ? $arguments[2] : null;
 
-				return $message;
+					$message = $errors->first($attribute, ":" . self::DOMAIN);
+					$message = Trans::trans_choice($message, 0);
 
-			}, ['is_safe' => ['html']]
-		  ),
-		];
+					if (!empty($class) && !empty($message)) {
+						$this->addErrroHtmlTag($message, $class);
+					}
+
+					return $message;
+
+				}, array('is_safe' => array('html'))
+			),
+		);
 	}
 
-	private function addErrroHtmlTag(&$message, $class){
-		$message = '<p class="'.$class.'">'.$message.'</p>';
+	private function addErrroHtmlTag(&$message, $class)
+	{
+		$message = '<p class="' . $class . '">' . $message . '</p>';
 	}
 }
