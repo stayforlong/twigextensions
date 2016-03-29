@@ -31,7 +31,7 @@ class FormErrors extends Twig_Extension
 				$domain = "message";
 				$attribute = $arguments[0];
 				$errors = $arguments[1];
-				$class = $arguments[2];
+				$class = !empty($arguments[2])? $arguments[2] : null;
 
 				$message = $errors->first($attribute, ':message');
 				$message = Trans::trans_choice($message, 0);
