@@ -94,37 +94,38 @@ class Trans extends Twig_Node
 
 	static public function translate( $literal, $arguments = [], $count = 0, $domain = "messages", $locale = null )
 	{
-		if ( empty( $literal ) )
-		{
-			trigger_error( 'Empty string found in {% trans %} block', E_USER_WARNING );
-			return '';
-		}
+		try {
 
-		$indexed_arguments = [];
-		while ( true )
-		{
-			foreach ( $arguments as $key => $argument )
-			{
-				if ( !is_array( $argument ) )
-				{
-					$indexed_arguments[self::ARGUMENT_INDEX_PREFIX . $key] = $argument;
-					continue;
-				}
-				foreach ( $argument as $subargument )
-				{
-					$indexed_arguments[self::ARGUMENT_INDEX_PREFIX . $key] = $subargument;
-				}
-				continue 2;
+
+			if (empty($literal)) {
+				trigger_error('Empty string found in {% trans %} block', E_USER_WARNING);
+				return '';
 			}
-			break;
+
+			$indexed_arguments = [];
+			while (true) {
+				foreach ($arguments as $key => $argument) {
+					if (!is_array($argument)) {
+						$indexed_arguments[self::ARGUMENT_INDEX_PREFIX . $key] = $argument;
+						continue;
+					}
+					foreach ($argument as $subargument) {
+						$indexed_arguments[self::ARGUMENT_INDEX_PREFIX . $key] = $subargument;
+					}
+					continue 2;
+				}
+				break;
+			}
+
+			$literal         = trim($literal);
+			$translated_text = self::trans_choice($literal, $count, $indexed_arguments, $domain, $locale);
+
+			unset($indexed_arguments);
+
+			return $translated_text;
+		}catch(\Exception $e){
+			return $literal;
 		}
-
-		$literal = trim($literal);
-		$translated_text = self::trans_choice($literal, $count, $indexed_arguments, $domain, $locale);
-
-		unset($indexed_arguments);
-
-		return $translated_text;
 	}
 
 	static public function trans_choice($id, $number, array $parameters = [], $domain = 'messages', $locale = null)
