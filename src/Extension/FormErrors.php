@@ -1,7 +1,6 @@
 <?php
 namespace StayForLong\TwigExtensions\Extension;
 
-use StayForLong\TwigExtensions\Node\Trans;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
