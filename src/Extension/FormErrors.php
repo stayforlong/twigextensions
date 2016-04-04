@@ -1,6 +1,7 @@
 <?php
 namespace StayForLong\TwigExtensions\Extension;
 
+use StayForLong\TwigExtensions\Node\Trans as Translation;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -42,7 +43,7 @@ class FormErrors extends Twig_Extension
 					$class     = !empty($arguments[2]) ? $arguments[2] : null;
 
 					$message = $errors->first($attribute, ":" . self::DOMAIN);
-					$message = Trans::trans_choice($message, 0);
+					$message = Translation::trans_choice($message, 0);
 
 					if (!empty($class) && !empty($message)) {
 						$this->addErrroHtmlTag($message, $class);
