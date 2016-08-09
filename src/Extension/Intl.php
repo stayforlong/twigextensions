@@ -93,7 +93,7 @@ class Intl extends Twig_Extension
         $formatter = $this->twig_get_number_formatter($locale, 'currency');
 
         $currency = $formatter->formatCurrency($number, $currency);
-        return $currency;
+        return $this->removeZeroCents($currency);
     }
 
     /**
@@ -137,4 +137,13 @@ class Intl extends Twig_Extension
 
         return $formatter;
     }
+
+    /**
+    * @param $currency
+    * @return string
+    */
+   private function removeZeroCents($currency) {
+
+       return htmlspecialchars(preg_replace('/(\.|,)00/', '', $currency), ENT_IGNORE);
+   }
 }
