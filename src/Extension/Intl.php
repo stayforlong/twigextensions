@@ -97,7 +97,8 @@ class Intl extends Twig_Extension
         if(isset($float_part[1]) && $float_part[1] > 0){
             $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, 2);
         }
-        return $formatter->formatCurrency($number, $currency);
+        $currency = $formatter->formatCurrency($number, $currency);
+        return $this->removeZeroCents($currency);
     }
 
     /**
