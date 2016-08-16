@@ -92,8 +92,12 @@ class Intl extends Twig_Extension
     {
         $formatter = $this->twig_get_number_formatter($locale, 'currency');
 
-        $currency = $formatter->formatCurrency($number, $currency);
-        return $this->removeZeroCents($currency);
+        $float_part = explode(".", $number);
+        $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, 0);
+        if(isset($float_part[1]) && $float_part[1] > 0){
+            $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, 2);
+        }
+        return $formatter->formatCurrency($number, $currency);
     }
 
     /**
