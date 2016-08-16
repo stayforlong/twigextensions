@@ -144,6 +144,6 @@ class Intl extends Twig_Extension
     */
    private function removeZeroCents($currency) {
 
-       return htmlspecialchars(preg_replace('/(\.|,)00/', '', $currency), ENT_IGNORE);
+       return htmlspecialchars(preg_replace('/(\.|,)00$/', '', $currency), ENT_IGNORE);
    }
 }
