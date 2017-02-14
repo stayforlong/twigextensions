@@ -7,6 +7,9 @@ use Twig_SimpleFunction;
 
 class PhotoUrl extends Twig_Extension
 {
+	const S3_IMAGE_SYSTEM = 's3';
+	const CLOUDFRONT_IMAGE_SYSTEM = 'cloudfront';
+
 	/**
 	 * Returns the name of the extension.
 	 *
@@ -34,7 +37,7 @@ class PhotoUrl extends Twig_Extension
 					$encrypted = !empty($arguments[3]) ? $arguments[3] : false;
 
 					if ("stayforlong" == $photo['source']) {
-						return $this->getUrlBucket($type, $photo['path'], $encrypted);
+						return $this->getUrl($type, $photo['path'], $encrypted);
 					}
 
 					if (!empty($photo['path'])) {
@@ -43,6 +46,18 @@ class PhotoUrl extends Twig_Extension
 				}, ['is_safe' => ['html']]
 			),
 		];
+	}
+
+	private function getUrl($type, $path, $encrypted = false)
+	{
+		$images = config('filesystems.images');
+		if (static::S3_IMAGE_SYSTEM == $images) {
+			return $this->getUrlBucket($type, $path, $encrypted);
+		} elseif (static::CLOUDFRONT_IMAGE_SYSTEM == $images) {
+			return $this->getUrlCloudFront($type, $path);
+		}
+
+		throw new \Exception("Unknown image filesystems: " . $images);
 	}
 
 	private function getUrlBucket($type, $path, $encrypted = false)
@@ -56,6 +71,12 @@ class PhotoUrl extends Twig_Extension
 		}
 
 		return $url;
+	}
+
+	private function getUrlCloudFront($type, $path)
+	{
+		$endpoint = config('filesystems.disks.cloudfront.endpoint');
+		return $endpoint . '/' . $type . '/' . $path;
 	}
 
 	/**
