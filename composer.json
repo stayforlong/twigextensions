@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "stayforlong/twigstay": "dev-UPGRADE_TO_LARAVEL_5.5"
+        "stayforlong/twigstay": "0.10.1.x-dev"
     },
     "autoload": {
         "psr-4": {
