@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "stayforlong/twigstay": "dev-master"
+        "stayforlong/twigstay": "0.10.1.x-dev"
     },
     "autoload": {
         "psr-4": {
