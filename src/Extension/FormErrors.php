@@ -2,10 +2,11 @@
 namespace StayForLong\TwigExtensions\Extension;
 
 use StayForLong\TwigExtensions\Node\Trans as Translation;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig\Error\Error;
 
-class FormErrors extends Twig_Extension
+class FormErrors extends AbstractExtension
 {
 	const DOMAIN = "message";
 
@@ -25,17 +26,17 @@ class FormErrors extends Twig_Extension
 	public function getFunctions()
 	{
 		return array(
-			new Twig_SimpleFunction(
+			new TwigFunction(
 				'errors_for',
 				function ($name) {
 					$arguments = func_get_args();
 
 					if(empty($arguments[0])){
-						throw new \Twig_Error("Empty first argument to define the attribute of error");
+						throw new Error("Empty first argument to define the attribute of error");
 					}
 
 					if(empty($arguments[1])){
-						throw new \Twig_Error("Empty second argument to define the array errors");
+						throw new Error("Empty second argument to define the array errors");
 					}
 
 					$attribute = $arguments[0];

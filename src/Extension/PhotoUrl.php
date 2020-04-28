@@ -2,10 +2,10 @@
 namespace StayForLong\TwigExtensions\Extension;
 
 use Illuminate\Support\Facades\Storage;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class PhotoUrl extends Twig_Extension
+class PhotoUrl extends AbstractExtension
 {
 	const S3_IMAGE_SYSTEM = 's3';
 	const CLOUDFRONT_IMAGE_SYSTEM = 'cloudfront';
@@ -26,7 +26,7 @@ class PhotoUrl extends Twig_Extension
 	public function getFunctions()
 	{
 		return [
-			new Twig_SimpleFunction(
+			new TwigFunction(
 				'photo_url',
 				function ($name) {
 					$arguments = func_get_args();

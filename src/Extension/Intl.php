@@ -1,10 +1,11 @@
 <?php
 namespace StayForLong\TwigExtensions\Extension;
 
-use Twig_Extension;
-use Twig_SimpleFilter;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\Error\SyntaxError;
 
-class Intl extends Twig_Extension
+class Intl extends AbstractExtension
 {
     public function __construct()
     {
@@ -21,9 +22,9 @@ class Intl extends Twig_Extension
     public function getFilters()
     {
         return array(
-            new Twig_SimpleFilter('localizeddate', [$this,'twig_localized_date_filter'], array('needs_environment' => true)),
-            new Twig_SimpleFilter('localizednumber', [$this,'twig_localized_number_filter']),
-            new Twig_SimpleFilter('localizedcurrency', [$this,'twig_localized_currency_filter']),
+            new TwigFilter('localizeddate', [$this,'twig_localized_date_filter'], array('needs_environment' => true)),
+            new TwigFilter('localizednumber', [$this,'twig_localized_number_filter']),
+            new TwigFilter('localizedcurrency', [$this,'twig_localized_currency_filter']),
         );
     }
 
@@ -81,7 +82,7 @@ class Intl extends Twig_Extension
         $formatter = $this->twig_get_number_formatter($locale, $style);
 
         if (!isset($typeValues[$type])) {
-            throw new \Twig_Error_Syntax(sprintf('The type "%s" does not exist. Known types are: "%s"', $type,
+            throw new SyntaxError(sprintf('The type "%s" does not exist. Known types are: "%s"', $type,
                 implode('", "', array_keys($typeValues))));
         }
 
@@ -107,7 +108,7 @@ class Intl extends Twig_Extension
      * @param string $locale Locale in which the number would be formatted
      * @param int $style Style of the formatting
      *
-     * @return NumberFormatter A NumberFormatter instance
+     * @return \NumberFormatter A NumberFormatter instance
      */
     public function twig_get_number_formatter($locale, $style)
     {
@@ -132,7 +133,7 @@ class Intl extends Twig_Extension
         );
 
         if (!isset($styleValues[$style])) {
-            throw new \Twig_Error_Syntax(sprintf('The style "%s" does not exist. Known styles are: "%s"', $style,
+            throw new SyntaxError(sprintf('The style "%s" does not exist. Known styles are: "%s"', $style,
                 implode('", "', array_keys($styleValues))));
         }
 

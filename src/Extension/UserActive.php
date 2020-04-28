@@ -2,10 +2,10 @@
 namespace StayForLong\TwigExtensions\Extension;
 
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class UserActive extends Twig_Extension
+class UserActive extends AbstractExtension
 {
 	/**
 	 * Returns the name of the extension.
@@ -23,7 +23,7 @@ class UserActive extends Twig_Extension
 	public function getFunctions()
 	{
 		return [
-		  new Twig_SimpleFunction(
+		  new TwigFunction(
 			'user_active',
 			function () {
 				return Sentry::check();

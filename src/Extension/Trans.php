@@ -1,10 +1,10 @@
 <?php
 namespace StayForLong\TwigExtensions\Extension;
 
-use Twig_Extension;
-use Twig_SimpleFilter;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-class Trans extends Twig_Extension
+class Trans extends AbstractExtension
 {
 	public function getTokenParsers()
 	{
@@ -14,7 +14,7 @@ class Trans extends Twig_Extension
 	public function getFilters()
 	{
 		return array(
-			new Twig_SimpleFilter('trans', 'trans', array()),
+			new TwigFilter('trans', 'trans', array()),
 		);
 	}
 
