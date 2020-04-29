@@ -12,7 +12,7 @@
         "php": ">=7",
         "ext-intl": "*",
         "macellan/sentry": "^5.1",
-        "stayforlong/twigstay": "0.14.0"
+        "stayforlong/twigstay": "0.14.1"
     },
     "autoload": {
         "psr-4": {
