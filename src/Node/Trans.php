@@ -1,14 +1,13 @@
 <?php
 namespace StayForLong\TwigExtensions\Node;
 
-use Twig_Node;
-use Twig_Compiler;
-use Illuminate\Translation\Translator as LaravelTranslator;
+use Twig\Node\Node;
+use Twig\Compiler;
 
 /**
  * The Twig node "T" to be used in translations.
  */
-class Trans extends Twig_Node
+class Trans extends Node
 {
 	/**
 	 * Function name to actually call in the parsed template.
@@ -22,11 +21,11 @@ class Trans extends Twig_Node
 
 	/**
 	 * @param array $params
-	 * @param Twig_Node $body
+	 * @param Node $body
 	 * @param int $lineno
 	 * @param string $tag
 	 */
-	public function __construct($params, Twig_Node $body, $lineno, $tag = null)
+	public function __construct($params, Node $body, $lineno, $tag = null)
     {
 		$nodes = array(
 			'body' => $body,
@@ -52,9 +51,9 @@ class Trans extends Twig_Node
 	/**
 	 * Compiles the node to PHP.
 	 *
-	 * @param Twig_Compiler $compiler
+	 * @param Compiler $compiler
 	 */
-	function compile( Twig_Compiler $compiler )
+	function compile( Compiler $compiler )
 	{
 		$argument_offsets = $this->getAttribute( 'argument_offsets' );
 
