@@ -11,15 +11,8 @@
     "require": {
         "php": ">=7",
         "ext-intl": "*",
-        "stayforlong/sentry": "^6",
         "stayforlong/twigstay": "0.14.1"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/stayforlong/sentry"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "StayForLong\\TwigExtensions\\": "src/"
