@@ -11,7 +11,7 @@
     "require": {
         "php": ">=7",
         "ext-intl": "*",
-        "stayforlong/twigstay": "0.14.1"
+        "stayforlong/twigstay": "0.15.0"
     },
     "autoload": {
         "psr-4": {
