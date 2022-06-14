@@ -2,6 +2,7 @@
 namespace StayForLong\TwigExtensions\Extension;
 
 use Twig\Extension\AbstractExtension;
+use Twig\Environment;
 use Twig\TwigFilter;
 use Twig\Error\SyntaxError;
 
@@ -39,7 +40,7 @@ class Intl extends AbstractExtension
     }
 
     public function twig_localized_date_filter(
-        \Twig_Environment $env,
+        Environment $env,
         $date,
         $dateFormat = 'medium',
         $timeFormat = 'medium',
